@@ -12,7 +12,19 @@ jobs:
     steps:
     - name: Check out this repo
       uses: actions/checkout@v2
-    - name: Fetch latest data
-      run: scripts/update.sh
+    - uses: hubgit/curl-etag@master
+      with:
+        args: curl-etag original/data_latest.json https://c19downloads.azureedge.net/downloads/data/data_latest.json
+    - uses: hubgit/curl-etag@master
+      with:
+        args: curl-etag original/utlas.geojson https://c19pub.azureedge.net/utlas.geojson
+    - uses: hubgit/curl-etag@master
+      with:
+        args: curl-etag original/countries.geojson https://c19pub.azureedge.net/countries.geojson
+    - uses: hubgit/curl-etag@master
+      with:
+        args: curl-etag original/regions.geojson https://c19pub.azureedge.net/regions.geojson
+    - name: Process data
+      run: scripts/process.sh
     - name: Commit and push if it changed
       run: scripts/commit.sh
