@@ -14,13 +14,16 @@ jobs:
       uses: actions/checkout@v2
     - uses: hubgit/curl-etag@master
       with:
-        args: original/countries_v1.geojson https://c19pub.azureedge.net/assets/geo/countries_v1.geojson
+        args: original/ltlas_latest.json https://c19downloads.azureedge.net/downloads/data/ltlas_latest.json
+    - uses: hubgit/curl-etag@master
+      with:
+        args: original/utlas_latest.json https://c19downloads.azureedge.net/downloads/data/utlas_latest.json
     - uses: hubgit/curl-etag@master
       with:
         args: original/countries_latest.geojson https://c19downloads.azureedge.net/downloads/data/countries_latest.json
     - uses: hubgit/curl-etag@master
       with:
-        args: original/population.geojson https://c19pub.azureedge.net/assets/population/population.json
+        args: original/regions_latest.geojson https://c19downloads.azureedge.net/downloads/data/regions_latest.json
     - name: Process data
       run: scripts/process.sh
     - name: Commit and push if it changed
